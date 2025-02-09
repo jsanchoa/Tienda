@@ -1,0 +1,36 @@
+-Selector de ID
+#tituloPrincipal {
+    text-align: center;
+    color: white;
+    background-color: purple
+}
+
+-Selector de clases
+.parrafoVerde {
+    text-align: center;
+    color: green;
+}
+
+-Selector de clases
+.parrafoVerde {
+    text-align: center;
+    color: green;
+}
+
+a{
+    font-size: 20px;
+}
+
+a:visited{
+    color: green;
+}
+
+a:hover{
+    color: red;
+    transition: 1s;
+}
+
+a:active{
+    color:white;
+    background: black;
+}

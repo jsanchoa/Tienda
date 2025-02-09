@@ -1,10 +1,111 @@
-#tituloPrincipal {
-    text-align: center;
-    color: white;
-    background-color: purple
+#barraLateral {
+    position: absolute;
+    top: 12%;
+    left: 0;
+    height: 81%;
+    width: 20%;
+    background-color: #8e27f6;
+    color: black;
 }
 
-.parrafoVerde {
+#contenido {
+    position: absolute;
+    top: 12%;
+    left: 20%;
+    height: 81%;
+    width: 80%;
+    background-color: gainsboro;
+    color: black;
+    overflow: auto;
+}
+
+#piePagina {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 7%;
+    width: 100%;
+    background-color: #87f29b;
+    color: black;
     text-align: center;
-    color: green;
+}
+
+#encabezadoTabla {
+    font-size: 20px;
+    color: white;
+    background-color: cadetblue;
+}
+
+#tablaResumen tr {
+    font-size: 25px;
+}
+
+#tablaResumen tr:nth-child(odd) {
+    background-color: gold;
+}
+
+#tablaResumen tr:nth-child(even) {
+    background-color: coral;
+}
+
+/* Division pagina */
+.image-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+.background-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    color: white;
+}
+
+.overlay-text:hover {
+    color: blue;
+    transition: 1s;
+}
+
+#KOInavbar:hover{
+    color: blue;
+}
+
+#Productos-Titulo{
+    text-align: center;
+}
+
+a{
+    color: #ffffff  
+}
+
+#accordionPanelsStayOpenExample{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%
+}
+
+.textoInicioSesion{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
 }
