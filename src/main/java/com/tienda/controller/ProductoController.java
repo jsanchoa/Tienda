@@ -40,34 +40,8 @@ public class ProductoController {
         return "/producto/listado";
     }
 
-    @PostMapping("/guardar")
-    public String productoGuardar(Producto producto, @RequestParam("imagenFile") MultipartFile imagenFile) {
-        if (!imagenFile.isEmpty()) {
-            productoService.save(producto);
-            producto.setRutaImagen(
-                    firebaseStorageService.cargaImagen(
-                            imagenFile,
-                            "producto",
-                            producto.getIdProducto()));
-        }
-        productoService.save(producto);
-        return "redirect:/producto/listado";
-    }
 
-    @GetMapping("/eliminar/{idProducto}")
-    public String productoEliminar(Producto producto) {
-        productoService.delete(producto);
-        return "redirect:/producto/listado";
-    }
 
-    @GetMapping("/modificar/{idProducto}")
-    public String productoModificar(Producto producto, Model model) {
-        List<Categoria> categorias = categoriaService.getCategorias(true);
-        producto = productoService.getProducto(producto);
 
-        model.addAttribute("producto", producto);
-        model.addAttribute("categorias", categorias);
-        return "/producto/modifica";
-    }
 
 }
