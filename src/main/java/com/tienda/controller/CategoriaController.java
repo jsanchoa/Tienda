@@ -60,4 +60,13 @@ public class CategoriaController {
         return "/categoria/modifica";
     }
 
+    @PostMapping("/consulta")
+    public String consultaQuery1(@RequestParam(value = "descripcionCon") String descripcionCon, Model model) {
+        var categorias = categoriaService.filtrarDescripcion(descripcionCon);
+        model.addAttribute("categorias", categorias);
+        model.addAttribute("descripcionCon", descripcionCon);
+        model.addAttribute("totalCategorias", categorias.size());
+        return "/categoria/listado";
+    }
+
 }
