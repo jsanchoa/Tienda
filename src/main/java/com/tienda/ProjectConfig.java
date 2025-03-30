@@ -5,8 +5,11 @@
 
 package com.tienda;
 
+import java.util.List;
 import java.util.Locale;
 
+import com.tienda.domain.RequestMatcher;
+import com.tienda.service.RequestMatcherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -107,6 +110,8 @@ public class ProjectConfig implements WebMvcConfigurer {
 
      */
 
+    /*
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -139,6 +144,38 @@ public class ProjectConfig implements WebMvcConfigurer {
         return http.build();
     }
 
+     */
+
+    @Autowired
+    RequestMatcherService requestMatcherService;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Traer de BD los registros
+        List<RequestMatcher> requestMatchers = requestMatcherService.getAllRequestMatchers();
+
+        http
+                .authorizeHttpRequests((request) -> {
+                    request
+                            .requestMatchers("/", "/index", "/errores/**", "/error", "/error/**",
+                                    "/carrito/**", "/pruebas/**", "/reportes/**",
+                                    "/registro/**", "/js/**", "/css/**", "/webjars/**")
+                            .permitAll();
+
+                    for (RequestMatcher matcher : requestMatchers) {
+                        request
+                                .requestMatchers(matcher.getPattern())
+                                .hasRole(matcher.getRoleName());
+                    }
+                })
+                .formLogin((form) -> form
+                        .loginPage("/login").permitAll())
+                .logout((logout) -> logout.permitAll());
+
+        return http.build();
+
+    }
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -146,7 +183,5 @@ public class ProjectConfig implements WebMvcConfigurer {
     public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
         build.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
-
-
 
 }
