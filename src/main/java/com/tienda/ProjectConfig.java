@@ -151,29 +151,33 @@ public class ProjectConfig implements WebMvcConfigurer {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Traer de BD los registros
-        List<RequestMatcher> requestMatchers = requestMatcherService.getAllRequestMatchers();
-
         http
-                .authorizeHttpRequests((request) -> {
-                    request
-                            .requestMatchers("/", "/index", "/errores/**", "/error", "/error/**",
-                                    "/carrito/**", "/pruebas/**", "/reportes/**",
-                                    "/registro/**", "/js/**", "/css/**", "/webjars/**")
-                            .permitAll();
-
-                    for (RequestMatcher matcher : requestMatchers) {
-                        request
-                                .requestMatchers(matcher.getPattern())
-                                .hasRole(matcher.getRoleName());
-                    }
-                })
+                .authorizeHttpRequests((request) -> request
+                        .requestMatchers("/", "/index", "/errores/**",
+                                "/carrito/**", "/reportes/**",
+                                "/registro/**", "/js/**", "/webjars/**", "/error", "/refrescarBoton")
+                        .permitAll()
+                        .requestMatchers(
+                                "/producto/nuevo", "/producto/guardar",
+                                "/producto/modificar/**", "/producto/eliminar/**",
+                                "/categoria/nuevo", "/categoria/guardar",
+                                "/categoria/modificar/**", "/categoria/eliminar/**",
+                                "/usuario/nuevo", "/usuario/guardar",
+                                "/usuario/modificar/**", "/usuario/eliminar/**",
+                                "/reportes/**", "/pruebas/**"
+                        ).hasRole("ADMIN")
+                        .requestMatchers(
+                                "/producto/listado",
+                                "/categoria/listado",
+                                "/usuario/listado"
+                        ).hasAnyRole("ADMIN", "VENDEDOR")
+                        .requestMatchers("/facturar/carrito")
+                        .hasRole("USER")
+                )
                 .formLogin((form) -> form
                         .loginPage("/login").permitAll())
                 .logout((logout) -> logout.permitAll());
-
         return http.build();
-
     }
 
     @Autowired
